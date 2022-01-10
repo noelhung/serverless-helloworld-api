@@ -18,6 +18,6 @@ services:
     environment:
       HANDLER: app/index.php
   php:
-    image: bref/php-81-fpm-dev
+    image: bref/php-80-fpm
     volumes:
       - .:/var/task:ro
