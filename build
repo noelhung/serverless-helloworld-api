@@ -1,0 +1,15 @@
+#!/bin/bash
+
+BUILD_ENV=$1
+
+if [[ -z "$BUILD_ENV" ]]; then
+  echo "No environment provided cannot continue"
+  echo "Valid environments are: dev, test or live"
+  exit 1
+fi
+
+export AWS_KEY=$(aws configure get aws_access_key_id)
+export AWS_SECRET=$(aws configure get aws_secret_access_key)
+
+docker-compose -f docker-compose.yml stop
+docker-compose -f docker-compose.yml up --build -d

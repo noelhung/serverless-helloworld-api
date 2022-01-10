@@ -1,0 +1,26 @@
+service: noel-service-api-test
+
+provider:
+    name: aws
+    region: ap-southeast-2
+    runtime: provided.al2
+    lambdaHashingVersion: 20201221
+
+plugins:
+    - ./vendor/bref/bref
+
+functions:
+    api:
+        handler: index.php
+        description: 'Hello world exercise'
+        timeout: 28 # in seconds (API Gateway has a timeout of 29 seconds)
+        layers:
+            - ${bref:layer.php-74-fpm}
+        events:
+            -   httpApi: '*'
+
+# Exclude files from deployment
+package:
+    patterns:
+        - '!node_modules/**'
+        - '!tests/**'
